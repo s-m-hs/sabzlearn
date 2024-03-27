@@ -6,7 +6,7 @@ export default function NavBar() {
     <div class="container-fluid">
       <div class="main-header__content">
         <div class="main-header__right">
-          <img src="./photo_2023-12-28_17-14-03.jpg" class="main-header__logo" alt="لوگوی سبزلرن" />
+          <img src="/./photo_2023-12-28_17-14-03.jpg" class="main-header__logo" alt="لوگوی سبزلرن" />
 
           <ul class="main-header__menu">
             <li class="main-header__item">

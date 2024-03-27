@@ -1,0 +1,11 @@
+.footer-widgets {
+    background-color: #f0f2f7;
+    border-radius: 1rem;
+    padding: 4rem 3.5rem;
+    position: relative;
+    margin-bottom: 5rem;
+  }
+  .footer-widgets__text {
+    color: #7d7e7f;
+  }
+  
