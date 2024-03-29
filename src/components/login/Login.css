@@ -1,0 +1,16 @@
+.cmsnewyousercoma-container{
+    box-shadow: 0 0 15px -10px rgb(0, 0, 0,0.75);
+    
+}
+.cmsnewyousercoma-row{
+    background-color: var(--white2);
+
+}
+.cmsnewyousercoma-divd .input-group-text{
+    box-shadow: 5px 5px 20px rgba(0,0,0,.2);
+}
+.cmsnewyousercoma-sendicon{
+    transform: rotate(180deg);
+color: var(--white2);
+margin-right: 1cqi;
+}

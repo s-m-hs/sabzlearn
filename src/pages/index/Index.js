@@ -7,10 +7,12 @@ import PopularCources from '../../components/popularCources/PopularCources'
 import PrecellCources from '../../components/precellCourse/PrecellCources'
 import LastArticles from '../../components/lastArticles/LastArticles'
 import Footer from '../../components/footer/Footer'
+import InputComponent from '../../components/inputComponent/InputComponent'
 
 export default function Index() {
   return (
     <div>
+      <InputComponent/>
 <Header/>
 <LastCourse/>
 <AboutUs/>
@@ -18,6 +20,7 @@ export default function Index() {
 <PrecellCources/>
 <LastArticles/>
 <Footer/>
+
 
     </div>
 
