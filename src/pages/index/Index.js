@@ -12,7 +12,6 @@ import InputComponent from '../../components/inputComponent/InputComponent'
 export default function Index() {
   return (
     <div>
-      <InputComponent/>
 <Header/>
 <LastCourse/>
 <AboutUs/>
