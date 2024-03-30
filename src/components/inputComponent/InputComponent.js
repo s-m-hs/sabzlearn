@@ -9,6 +9,7 @@ function ChangValuReducer(state, action) {
             return {
                 ...state,
                 value: action.value,
+                isValid:!state.isValid
             }
     }
 }
@@ -20,6 +21,7 @@ export default function InputComponent(props) {
         dispatch2({
             type: 'CHANGE',
             value: e.target.value,
+           
         })
     }
     const element =
@@ -28,7 +30,10 @@ export default function InputComponent(props) {
                 value={valuObj.value}
                 type={props.type}
                 placeholder={props.placeholder}
-                className={props.className}
+                // className={ valuObj.isValid ? props.className `${'secces'}` : `${'error'}`}
+                className={ valuObj.isValid ?  `${'secces'}` : `${'error'}`}
+
+
                 onChange={changeHandler}
             />) :
             (<textarea

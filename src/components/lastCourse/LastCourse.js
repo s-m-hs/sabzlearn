@@ -13,9 +13,9 @@ export default function LastCourse() {
  btnHref='cources'
  />
  
- <div class="courses-content">
-          <div class="container">
-            <div class="row">
+ <div className="courses-content">
+          <div className="container">
+            <div className="row">
 <CourceBox/>
 <CourceBox/>
 <CourceBox/>

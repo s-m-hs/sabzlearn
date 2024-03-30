@@ -14,3 +14,10 @@
 color: var(--white2);
 margin-right: 1cqi;
 }
+.secces{
+border: 1px solid green;
+}
+
+.error{
+    border: 1px solid red;
+}

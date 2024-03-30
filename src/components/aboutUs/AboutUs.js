@@ -6,8 +6,8 @@ import AboutUsBox from '../aboutUsBox/AboutUsBox'
 export default function AboutUs() {
   return (
 
-    <div class="about-us">
-      <div class="container"> 
+    <div className="about-us">
+      <div className="container"> 
       <div className="row">
 <SectionHeader
 title='ما چه کمکی به شما میکنیم '

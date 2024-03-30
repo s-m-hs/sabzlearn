@@ -28,7 +28,7 @@ export default function Login() {
     <InputComponent
     element='input'
     placeholder='نام کاربری'
-    
+    className="login secces"
     />
       </InputGroup>
 
