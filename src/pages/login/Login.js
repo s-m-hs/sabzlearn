@@ -10,6 +10,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Button from '@mui/material/Button';
+import { requiedValidator,minValidator,maxValidator,emailValidator } from '../../components/validators/rules'
+
 export default function Login() {
   return (
 <>
@@ -29,6 +31,24 @@ export default function Login() {
     element='input'
     placeholder='نام کاربری'
     className="login secces"
+    validations={[
+      requiedValidator(),
+      minValidator(8),
+      maxValidator(12)
+    ]}
+    />
+      </InputGroup>
+      <InputGroup className="mb-3">
+        <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
+    <InputComponent
+    element='input'
+    placeholder='رمز عبور'
+    className="login secces"
+    validations={[
+      requiedValidator(),
+      minValidator(8),
+      maxValidator(18)
+    ]}
     />
       </InputGroup>
 
