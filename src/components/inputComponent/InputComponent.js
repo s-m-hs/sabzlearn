@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import './InputComponent.css'
 import validator from '../validators/validator';
 
@@ -10,19 +10,31 @@ function ChangValuReducer(state, action) {
             return {
                 ...state,
                 value: action.value,
-                isValid:validator(action.value,action.validations)
+                isValid: validator(action.value, action.validPropIn)
             }
     }
 }
 
 export default function InputComponent(props) {
     const [valuObj, dispatch2] = useReducer(ChangValuReducer, { value: '', isValid: false })
+    const{value,isValid}=valuObj
+    
+
+
+    useEffect(()=>{
+       props.onInputHandler(props.id,value,isValid)
+        },[value]) 
+        
+
+
+
+
 
     const changeHandler = (e) => {
         dispatch2({
             type: 'CHANGE',
             value: e.target.value,
-           validations :props.validations
+            validPropIn: props.validPropTo
         })
     }
     const element =
@@ -32,7 +44,7 @@ export default function InputComponent(props) {
                 type={props.type}
                 placeholder={props.placeholder}
                 // className={ valuObj.isValid ? props.className `${'secces'}` : `${'error'}`}
-                className={ valuObj.isValid ?  `${'secces'}` : `${'error'}`}
+                className={valuObj.isValid ? `${'secces'}` : `${'error'}`}
 
 
                 onChange={changeHandler}
@@ -42,7 +54,6 @@ export default function InputComponent(props) {
                 className={props.className}
                 onChange={changeHandler}
             />)
-        
 
     return (
         <div>{element}</div>
