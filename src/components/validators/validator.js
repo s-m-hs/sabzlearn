@@ -1,4 +1,5 @@
 import rules from './rules'
+import regexes from './regexes';
 
 const validator = (input, validArry) => {
     console.log('validator==>', input, validArry);
@@ -13,7 +14,7 @@ const validator = (input, validArry) => {
         } else if (item.value === rules.maxValue) {
             input.trim().length > item.max && arrayPushvalid.push(false)
         } else if (item.value === rules.emailValue) {
-            !input.trim().includes("@") && arrayPushvalid.push(false)
+         !regexes.testEmail(input) && arrayPushvalid.push(false)
         } else if (item.value === rules.phoneValue) {
             !(input.trim().length === item.minmax) && arrayPushvalid.push(false)
         }

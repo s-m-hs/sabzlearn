@@ -16,54 +16,51 @@ import { LoginContext } from '../../context/loginContext'
 
 
 export default function Login() {
+
+  const [isFormValid, setIsFormValid] = useState(false)
   const [value1, setValue1] = useState('')
   const [value2, setValue2] = useState('')
+  const [value3, setValue3] = useState('')
   const [flag1, setFlag1] = useState(false)
   const [flag2, setFlag2] = useState(false)
+  const [flag3, setFlag3] = useState(false)
 
-  useEffect(() => {
 
-    if (value1.trim().length >= 8 && value1.trim().length<=12) {
-      setFlag1(true)
-    } else { setFlag1(false) }
-    if (value2.trim().length >= 8 && value2.trim().length<=12) {
-      setFlag2(true)
-    } else { setFlag2(false) }
-  }, [value1, value2, flag1, flag2])
-
+useEffect(()=>{
+ {(flag1 && flag2 && flag3) ?  setIsFormValid(true) : setIsFormValid(false)}
+},[flag1,flag2,flag3])
+ 
   return (
     <>
+
       <LoginContext.Provider value={{
         value1, setValue1,
         value2, setValue2,
+        value3, setValue3,
         flag1, setFlag1,
-        flag2, setFlag2
+        flag2, setFlag2,
+        flag3, setFlag3
       }}>
         <TopBar />
         <NavBar />
-
-
         <div className='container cmsnewyousercoma-container '>
           <div className='row cmsnewyousercoma-row'>
             <div className='col col-12 cmsnewyousercoma-divc
             '   style={{ textAlign: 'center' }} > <Image src="./login.jpg" fluid /></div>
             <div className='col col-12 cmsnewyousercoma-divd'  >
-
+              <h1>dfsfdsf</h1>
               <Form>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
                   <InputComponent
                     element='input'
                     id='username'
-                    value={value1}
                     placeholder='نام کاربری'
-                    className={flag1 ? "secces" :
-                      !value1 ? 'login' : 'error'}
+                    className={flag1 ? "secces" : !value1 ? 'login' : 'error'}  
                     validPropTo={[
                       requiedValidator(),
                       minValidator(8),
                       maxValidator(12),
-
                     ]}
                   />
                 </InputGroup>
@@ -72,11 +69,8 @@ export default function Login() {
                   <InputComponent
                     element='input'
                     id='password'
-                    value={value2}
                     placeholder='رمز عبور'
-                    className={flag2 ? "secces" :
-                      !value2 ? 'login' : 'error'}
-
+                    className={flag2 ? "secces" : !value2 ? 'login' : 'error'}  
                     validPropTo={[
                       requiedValidator(),
                       minValidator(8),
@@ -90,7 +84,7 @@ export default function Login() {
                     element='input'
                     id='email'
                     placeholder='ایمیل '
-                    className="login secces"
+                    className={flag3 ? "secces" : !value3 ? 'login' : 'error'}  
                     validPropTo={[
                       requiedValidator(),
                       // minValidator(8),
@@ -125,7 +119,7 @@ export default function Login() {
 
               </InputGroup> */}
 
-                <Button className={(flag1&&flag2) ? 'blue' : 'red' } type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}>
+                <Button className={isFormValid ? 'blue' : 'red'} type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}>
                   {/* <Button className={isFormValid ? 'blue' : 'red'} type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}> */}
                   تایید
                 </Button>
@@ -137,8 +131,8 @@ export default function Login() {
         </div>
 
         <Footer />
-
       </LoginContext.Provider>
+
 
     </>
   )
