@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import './Login.css'
 import TopBar from '../../components/topBar/TopBar'
 import NavBar from '../../components/navBar/NavBar'
@@ -6,81 +6,101 @@ import Footer from '../../components/footer/Footer'
 import InputComponent from '../../components/inputComponent/InputComponent'
 import { Image, Form, InputGroup, } from 'react-bootstrap'
 import SendIcon from '@mui/icons-material/Send';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Button from '@mui/material/Button';
 import { requiedValidator, minValidator, maxValidator, emailValidator, phoneValidator } from '../../components/validators/rules'
-import { useForm } from '../../hooks/useForm'
+import { LoginContext } from '../../context/loginContext'
+
+
 
 export default function Login() {
+  const [value1, setValue1] = useState('')
+  const [value2, setValue2] = useState('')
+  const [flag1, setFlag1] = useState(false)
+  const [flag2, setFlag2] = useState(false)
 
-const[formState,onInputHandler]=useForm({               //// <<==  export const useForm=(initInputs,initIsFormIsValid)=>{
-  username:{valueUF:'',isValidUF:false},               ////   const[formState,dispatch]=useReducer(formReducer,{      
-  password:{valueUF:'',isValidUF:false}                /////  inputRe:initInputs,
-},false)                                         /////  isFormValidRe:initIsFormIsValid })
+  useEffect(() => {
 
-
-console.log(formState);
+    if (value1.trim().length >= 8 && value1.trim().length<=12) {
+      setFlag1(true)
+    } else { setFlag1(false) }
+    if (value2.trim().length >= 8 && value2.trim().length<=12) {
+      setFlag2(true)
+    } else { setFlag2(false) }
+  }, [value1, value2, flag1, flag2])
 
   return (
     <>
-      <TopBar />
-      <NavBar />
+      <LoginContext.Provider value={{
+        value1, setValue1,
+        value2, setValue2,
+        flag1, setFlag1,
+        flag2, setFlag2
+      }}>
+        <TopBar />
+        <NavBar />
 
 
-      <div className='container cmsnewyousercoma-container '>
-        <div className='row cmsnewyousercoma-row'>
-          <div className='col col-12 cmsnewyousercoma-divc
+        <div className='container cmsnewyousercoma-container '>
+          <div className='row cmsnewyousercoma-row'>
+            <div className='col col-12 cmsnewyousercoma-divc
             '   style={{ textAlign: 'center' }} > <Image src="./login.jpg" fluid /></div>
-          <div className='col col-12 cmsnewyousercoma-divd'  >
-            <Form>
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
-                <InputComponent
-                  element='input'
-                  id='username'
-                  placeholder='نام کاربری'
-                  className="login secces"
-                  validPropTo={[
-                    requiedValidator(),
-                    minValidator(8),
-                    maxValidator(12),
+            <div className='col col-12 cmsnewyousercoma-divd'  >
 
-                  ]}
-                  onInputHandler={onInputHandler}
-                />
-              </InputGroup>
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
-                <InputComponent
-                  element='input'
-                  id='password'
-                  placeholder='رمز عبور'
-                  className="login secces"
-                  validPropTo={[
-                    requiedValidator(),
-                    minValidator(8),
-                    maxValidator(18)
-                  ]}
-                  onInputHandler={onInputHandler}
-                />
-              </InputGroup>
-              <InputGroup className="mb-3">
-                <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
-                <InputComponent
-                  element='input'
-                  placeholder='ایمیل '
-                  className="login secces"
-                  validPropTo={[
-                    requiedValidator(),
-                    // minValidator(8),
-                    // maxValidator(12),
-                    emailValidator()
-                  ]}
-                />
-              </InputGroup>
-              <InputGroup className="mb-3">
+              <Form>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
+                  <InputComponent
+                    element='input'
+                    id='username'
+                    value={value1}
+                    placeholder='نام کاربری'
+                    className={flag1 ? "secces" :
+                      !value1 ? 'login' : 'error'}
+                    validPropTo={[
+                      requiedValidator(),
+                      minValidator(8),
+                      maxValidator(12),
+
+                    ]}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
+                  <InputComponent
+                    element='input'
+                    id='password'
+                    value={value2}
+                    placeholder='رمز عبور'
+                    className={flag2 ? "secces" :
+                      !value2 ? 'login' : 'error'}
+
+                    validPropTo={[
+                      requiedValidator(),
+                      minValidator(8),
+                      maxValidator(18)
+                    ]}
+                  />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1"><AccountCircleIcon /></InputGroup.Text>
+                  <InputComponent
+                    element='input'
+                    id='email'
+                    placeholder='ایمیل '
+                    className="login secces"
+                    validPropTo={[
+                      requiedValidator(),
+                      // minValidator(8),
+                      // maxValidator(12),
+                      emailValidator()
+                    ]}
+
+                  />
+                </InputGroup>
+                {/* <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1"><LocalPhoneIcon /></InputGroup.Text>
                 <InputComponent
                   element='input'
@@ -88,8 +108,9 @@ console.log(formState);
                   validPropTo={[
                     requiedValidator(),
                     phoneValidator(11)
-
                   ]}
+                  onInputHandler={onInputHandler}
+
                 />
 
 
@@ -98,22 +119,66 @@ console.log(formState);
               <InputGroup className="mb-3">
                 <InputGroup.Text id="basic-addon1"><AlternateEmailIcon /></InputGroup.Text>
                 <InputComponent
+                  onInputHandler={onInputHandler}
 
                 />
 
-              </InputGroup>
+              </InputGroup> */}
 
-              <Button type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}>
-                تایید
-              </Button>
+                <Button className={(flag1&&flag2) ? 'blue' : 'red' } type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}>
+                  {/* <Button className={isFormValid ? 'blue' : 'red'} type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}> */}
+                  تایید
+                </Button>
 
-            </Form>
+              </Form>
 
+            </div>
           </div>
         </div>
-      </div>
 
-      <Footer />
+        <Footer />
+
+      </LoginContext.Provider>
+
     </>
   )
 }
+
+
+
+// Login() {
+//   const[flag1,setFlag1]=useState(false)
+//   const[flag2,setFlag2]=useState(false)
+//   const[flag3,setFlag3]=useState(false)
+//   const[isFormValid,setIsFormValid]=useState(false)
+//   const[formValue,setFormValue]=useState({})
+
+// const onInputHandler=(inputValue,inputIsValid,id)=>{
+// // console.log(id);
+// // console.log(flag1);
+// // console.log(flag2);
+// // console.log(flag3);
+// // console.log(isFormValid);
+// // console.log(formValue);
+// //   const obj={
+// // value:inputValue
+// //   }
+// if(id==='username'){
+
+//   setFlag1(inputIsValid)
+//   setFormValue(inputValue)
+//   // setFormValue(prev=>({...prev,value1:inputValue}))
+// }else if(id==='password'){
+//   setFlag2(inputIsValid)
+//   // setFormValue(prev=>({...prev,value2:inputValue}))
+// }else if(id==='email'){
+//   setFlag3(inputIsValid)
+
+// }
+
+//  if(flag1&&flag2&&flag3){
+//  setIsFormValid(true)
+// }else{
+//    setIsFormValid(false)
+// }
+// }

@@ -21,3 +21,11 @@ border: 1px solid green;
 .error{
     border: 1px solid red;
 }
+.blue{
+    color: blue;
+}
+.red{
+    color: brown;
+    opacity:0.5 ;
+
+}

@@ -1,62 +1,51 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import './InputComponent.css'
 import validator from '../validators/validator';
+import { LoginContext } from '../../context/loginContext';
 
-function ChangValuReducer(state, action) {
-    // console.log(state);
-    // console.log(state.isValid);
-    switch (action.type) {
-        case 'CHANGE':
-            return {
-                ...state,
-                value: action.value,
-                isValid: validator(action.value, action.validPropIn)
-            }
-    }
-}
+
 
 export default function InputComponent(props) {
-    const [valuObj, dispatch2] = useReducer(ChangValuReducer, { value: '', isValid: false })
-    const{value,isValid}=valuObj
-    
 
+const inputContext=useContext(LoginContext)       
 
-    useEffect(()=>{
-       props.onInputHandler(props.id,value,isValid)
-        },[value]) 
-        
-
-
-
-
-
-    const changeHandler = (e) => {
-        dispatch2({
-            type: 'CHANGE',
-            value: e.target.value,
-            validPropIn: props.validPropTo
-        })
+const changeHandler=(e)=>{
+    if(props.id==='username'){
+    inputContext.setValue1(e.target.value)
+    }else if(props.id==='password'){
+        inputContext.setValue2(e.target.value)
     }
-    const element =
-        props.element === 'input' ?
-            (<input
-                value={valuObj.value}
-                type={props.type}
-                placeholder={props.placeholder}
-                // className={ valuObj.isValid ? props.className `${'secces'}` : `${'error'}`}
-                className={valuObj.isValid ? `${'secces'}` : `${'error'}`}
+    
+}
+ const element =
+ props.element === 'input' ?
+     (
+     <>
+       <input
+        value={props.value}
+         type={props.type}
+         placeholder={props.placeholder}
+         className={props.className}
+         onChange={changeHandler}
 
+         
+     />  </> ) :
+     (<textarea
+        value={props.value}
+        type={props.type}
+        placeholder={props.placeholder}
+        className={props.className}
+        onChange={changeHandler}
+       
+     />
+    
+     
+   )
 
-                onChange={changeHandler}
-            />) :
-            (<textarea
-                placeholder={props.placeholder}
-                className={props.className}
-                onChange={changeHandler}
-            />)
 
     return (
-        <div>{element}</div>
+        <div>{element}
+        </div>
 
 
     )
