@@ -97,7 +97,9 @@ useEffect(()=>{
                   />
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
-            <button className= {isFormValid ? "login-form__btn" : 'login-form__btn red'} disabled={!isFormValid}  type="submit">
+            <button className= {isFormValid ? "login-form__btn" : 'login-form__btn red'}
+             disabled={!isFormValid} 
+              type="submit">
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span className="login-form__btn-text">ورود</span>
             </button>
@@ -139,15 +141,6 @@ useEffect(()=>{
     </>
   );
 }
-
-{/* <Button className={isFormValid ? 'blue' : 'red'} type='submit' fullWidth variant="contained" endIcon={<SendIcon className='cmsnewyousercoma-sendicon' />}>  */}
-
-
-
-
-
-
-
 
 
 

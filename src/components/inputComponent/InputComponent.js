@@ -12,11 +12,9 @@ function ChangValuReducer(state, action) {
                 ...state,
                 value: action.value,
                 isValid: validator(action.value, action.validPropIn),
-
             }
     }
 }
-
 export default function InputComponent(props) {
     const [valuObj, dispatch2] = useReducer(ChangValuReducer, { value: '', isValid: false, method: '' })
     const inputContext = useContext(LoginContext)
@@ -26,7 +24,6 @@ export default function InputComponent(props) {
             type: 'CHANGE',
             value: e.target.value,
             validPropIn: props.validPropTo,
-
         })
     }
     useEffect(() => {
@@ -53,8 +50,6 @@ export default function InputComponent(props) {
             input2Context.setValue3(valuObj.value)
             input2Context.setFlag3(valuObj.isValid)
         }
-
-
     })
 
 
