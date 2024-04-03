@@ -97,12 +97,12 @@ useEffect(()=>{
                   />
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
-            <button className= {isFormValid ? "login-form__btn" : 'login-form__btn red'} type="submit">
+            <button className= {isFormValid ? "login-form__btn" : 'login-form__btn red'} disabled={!isFormValid}  type="submit">
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span className="login-form__btn-text">ورود</span>
             </button>
             <div className="login-form__password-setting">
-              <label className="login-form__password-remember">
+              <label className="login-form__password-remember"> 
                 <input className="login-form__password-checkbox" type="checkbox" />
                 <span className="login-form__password-text">
                   مرا به خاطر داشته باش

@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useContext } from 'react'
 import './InputComponent.css'
 import validator from '../validators/validator';
 import { LoginContext } from '../../context/loginContext'
+import { RegisterContext } from '../../context/loginContext';
 
 
 function ChangValuReducer(state, action) {
@@ -19,6 +20,7 @@ function ChangValuReducer(state, action) {
 export default function InputComponent(props) {
     const [valuObj, dispatch2] = useReducer(ChangValuReducer, { value: '', isValid: false, method: '' })
     const inputContext = useContext(LoginContext)
+    const input2Context = useContext(RegisterContext)
     function changeHandler(e) {
         dispatch2({
             type: 'CHANGE',
@@ -34,10 +36,24 @@ export default function InputComponent(props) {
         } else if (props.id === 'password') {
             inputContext.setValue2(valuObj.value)
             inputContext.setFlag2(valuObj.isValid)
-        }else if (props.id === 'email') {
+        } else if (props.id === 'email') {
             inputContext.setValue3(valuObj.value)
             inputContext.setFlag3(valuObj.isValid)
         }
+        else if (props.id === 'rname') {
+            input2Context.setValue4(valuObj.value)
+            input2Context.setFlag4(valuObj.isValid)
+        } else if (props.id === 'rusername') {
+            input2Context.setValue1(valuObj.value)
+            input2Context.setFlag1(valuObj.isValid)
+        } else if (props.id === 'rpassword') {
+            input2Context.setValue2(valuObj.value)
+            input2Context.setFlag2(valuObj.isValid)
+        } else if (props.id === 'remail') {
+            input2Context.setValue3(valuObj.value)
+            input2Context.setFlag3(valuObj.isValid)
+        }
+
 
     })
 
