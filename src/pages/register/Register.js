@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import "./Register.css";
 import { Link } from 'react-router-dom'
 import TopBar from '../../components/topBar/TopBar'
@@ -7,6 +7,7 @@ import Footer from '../../components/footer/Footer'
 import InputComponent from '../../components/inputComponent/InputComponent'
 import { requiedValidator, minValidator, maxValidator, emailValidator, phoneValidator } from '../../components/validators/rules'
 import { RegisterContext } from '../../context/loginContext'
+import AuthContext from '../../context/loginContext';
 
 
 export default function Register() {
@@ -20,6 +21,7 @@ export default function Register() {
   const [flag3, setFlag3] = useState(false)
   const [flag4, setFlag4] = useState(false)
 
+  const authContextReg=useContext(AuthContext)
 
   useEffect(() => {
     { (flag1 && flag2 && flag3 && flag4) ? setIsFormValid(true) : setIsFormValid(false) }
@@ -37,7 +39,7 @@ export default function Register() {
       confirmPassword: `${value2}`
     }
     async function myAppReg() {
-      const res = await fetch(`http://localhost:4000/v1/auth/register`, {
+      const res = await fetch(`http://localhost:5000/v1/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +47,12 @@ export default function Register() {
         body: JSON.stringify(obj)
 
       }).then(res => res.json()).then(
-        result => console.log(result))
+        result => {
+          // console.log(result)
+          // console.log(result.accessToken)
+          authContextReg.login(result.user,result.accessToken)
+          console.log(authContextReg); 
+        }) 
     }
     myAppReg()
   }
