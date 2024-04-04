@@ -52,7 +52,11 @@ export default function App() {
       <AuthContext.Provider value={{
         isLogedIn,
         token,
+<<<<<<< HEAD
         userInfo, setUserInfo,
+=======
+        userInfo,
+>>>>>>> a0a8aa8cef0388f37621957f567d2f3714e1fa9d
         login: login,
         logout: logout
       }} >
