@@ -167,7 +167,14 @@
     
     }
 
-
+    .swal2-icon  {
+      width: 100% ;
+  font-size: large
+  
+    }
+.swal2-title{
+  color: darkorange;
+}
 
 
 

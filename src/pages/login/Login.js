@@ -1,12 +1,15 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import "./Login.css";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import TopBar from '../../components/topBar/TopBar'
 import NavBar from '../../components/navBar/NavBar'
 import Footer from '../../components/footer/Footer'
 import InputComponent from '../../components/inputComponent/InputComponent'
 import { requiedValidator, minValidator, maxValidator, emailValidator, phoneValidator } from '../../components/validators/rules'
 import { LoginContext } from '../../context/loginContext'
+import AuthContext from '../../context/loginContext';
+import Swal from 'sweetalert2'
+import { Navigate } from 'react-router-dom';
 
 
 
@@ -15,25 +18,90 @@ export default function Login() {
   const [isFormValid, setIsFormValid] = useState(false)
   const [value1, setValue1] = useState('')
   const [value2, setValue2] = useState('')
-  const [value3, setValue3] = useState('')
   const [flag1, setFlag1] = useState(false)
   const [flag2, setFlag2] = useState(false)
-  const [flag3, setFlag3] = useState(false)
 
+  const authContextLogin=useContext(AuthContext)
+  const navigate=useNavigate()
 
 useEffect(()=>{
- {(flag1 && flag2 && flag3) ?  setIsFormValid(true) : setIsFormValid(false)}
-},[flag1,flag2,flag3])
- 
+ {(flag1 && flag2 ) ?  setIsFormValid(true) : setIsFormValid(false)}
+},[flag1,flag2])
+ ////////////////////////
+ const loginHandler=(e)=>{
+e.preventDefault()
+let obj={
+  identifier:value1,
+  password:value2
+}
+console.log(value1);
+console.log(value2);
+async function myAppLogin(){
+  const res=await fetch(`http://localhost:5000/v1/auth/login`,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+    },
+    body:JSON.stringify(obj)
+  }).then(
+    (res)=>{
+      console.log(res)
+      console.log(res.ok)
+      if(!res.ok){
+        return res.text().then((text)=>{
+          throw new Error(text)
+        })
+      }else{
+        return res.json()
+      }
+    }
+    
+  ).then(
+    result=>{
+      console.log(result)
+      authContextLogin.login({},result.accessToken)
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
+      }).then(value=>{navigate('/')});
+    }
+  ).catch(
+    err=>{
+      console.log(err);
+      Swal.fire({
+        position: "top-end",
+        icon: "warning",
+        title:" کاربری با این مشخصات وجود ندارد",
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+  )
+}
+myAppLogin()
+ }
+//  Swal.fire({
+//   icon: "error",
+//   title: "Oops...",
+//   text: "کاربری با این مشخصات وجود ندارد",
+// });
+// Swal.fire({
+//   position: "top-end",
+//   icon: "error",
+//   title:" کاربری با این مشخصات وجود ندارد",
+//   showConfirmButton: false,
+//   timer: 1500
+// });
   return (
     <>
        <LoginContext.Provider value={{
         value1, setValue1,
         value2, setValue2,
-        value3, setValue3,
         flag1, setFlag1,
         flag2, setFlag2,
-        flag3, setFlag3
       }}>
       <TopBar />
       <NavBar />
@@ -56,15 +124,16 @@ useEffect(()=>{
                   <InputComponent
                     element='input'
                     id='username'
-                    placeholder='نام کاربری'
+                    placeholder='نام کاربری یا ایمیل خود را وارد کنید'
                     className={flag1 ? "login-form__username-input  secces" : !value1 ? 'login-form__username-input' : 'login-form__username-input  error'}  
                     validPropTo={[
                       requiedValidator(),
                       minValidator(8),
-                      maxValidator(12),
+                      maxValidator(18),
                     ]}
                   />
               <i className="login-form__username-icon fa fa-user"></i>
+              
             </div>
             <div className="login-form__password">
             <InputComponent
@@ -82,22 +151,11 @@ useEffect(()=>{
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
             <div className="login-form__password">
-            <InputComponent
-                    element='input'
-                    id='email'
-                    placeholder='ایمیل '
-                    className={flag3 ? "login-form__username-input  secces" : !value3 ? 'login-form__username-input' : 'login-form__username-input  error'}  
-                    validPropTo={[
-                      requiedValidator(),
-                      // minValidator(8),
-                      // maxValidator(12),
-                      emailValidator()
-                    ]}
-
-                  />
+        
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
             <button className= {isFormValid ? "login-form__btn" : 'login-form__btn red'}
+            onClick={loginHandler}
              disabled={!isFormValid} 
               type="submit">
               <i className="login-form__btn-icon fas fa-sign-out-alt"></i>

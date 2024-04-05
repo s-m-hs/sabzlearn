@@ -33,10 +33,7 @@ export default function InputComponent(props) {
         } else if (props.id === 'password') {
             inputContext.setValue2(valuObj.value)
             inputContext.setFlag2(valuObj.isValid)
-        } else if (props.id === 'email') {
-            inputContext.setValue3(valuObj.value)
-            inputContext.setFlag3(valuObj.isValid)
-        }
+        } 
         else if (props.id === 'rname') {
             input2Context.setValue4(valuObj.value)
             input2Context.setFlag4(valuObj.isValid)
