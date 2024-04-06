@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer, useState } from 'react'
 import "./Register.css";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import TopBar from '../../components/topBar/TopBar'
 import NavBar from '../../components/navBar/NavBar'
 import Footer from '../../components/footer/Footer'
@@ -8,6 +8,8 @@ import InputComponent from '../../components/inputComponent/InputComponent'
 import { requiedValidator, minValidator, maxValidator, emailValidator, phoneValidator } from '../../components/validators/rules'
 import { RegisterContext } from '../../context/loginContext'
 import AuthContext from '../../context/loginContext';
+import Swal from 'sweetalert2'
+
 
 
 export default function Register() {
@@ -22,6 +24,7 @@ export default function Register() {
   const [flag4, setFlag4] = useState(false)
 
   const authContextReg=useContext(AuthContext)
+  const navigate=useNavigate()
 
   useEffect(() => {
     { (flag1 && flag2 && flag3 && flag4) ? setIsFormValid(true) : setIsFormValid(false) }
@@ -48,10 +51,15 @@ export default function Register() {
 
       }).then(res => res.json()).then(
         result => {
-          // console.log(result)
-          // console.log(result.accessToken)
-          
           authContextReg.login(result.user,result.accessToken)
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "ثبت نام با موفقیت انجام شد ",
+            showConfirmButton: false,
+            timer: 1500,
+            color:' #a5dc86',
+                }).then(value=>{navigate('/')});
           console.log(authContextReg);  
         }) 
     }

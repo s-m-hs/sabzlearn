@@ -9,7 +9,6 @@ import { requiedValidator, minValidator, maxValidator, emailValidator, phoneVali
 import { LoginContext } from '../../context/loginContext'
 import AuthContext from '../../context/loginContext';
 import Swal from 'sweetalert2'
-import { Navigate } from 'react-router-dom';
 
 
 
@@ -63,10 +62,11 @@ async function myAppLogin(){
       Swal.fire({
         position: "top-end",
         icon: "success",
-        title: "Your work has been saved",
+        title: "خوش آمدید",
         showConfirmButton: false,
-        timer: 1500
-      }).then(value=>{navigate('/')});
+        timer: 1500,
+        color:' #a5dc86',
+            }).then(value=>{navigate('/')});
     }
   ).catch(
     err=>{
@@ -76,25 +76,15 @@ async function myAppLogin(){
         icon: "warning",
         title:" کاربری با این مشخصات وجود ندارد",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
+        color:'#ff8c00'
       });
     }
   )
 }
 myAppLogin()
  }
-//  Swal.fire({
-//   icon: "error",
-//   title: "Oops...",
-//   text: "کاربری با این مشخصات وجود ندارد",
-// });
-// Swal.fire({
-//   position: "top-end",
-//   icon: "error",
-//   title:" کاربری با این مشخصات وجود ندارد",
-//   showConfirmButton: false,
-//   timer: 1500
-// });
+
   return (
     <>
        <LoginContext.Provider value={{
