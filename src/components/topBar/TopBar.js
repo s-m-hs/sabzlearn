@@ -30,9 +30,9 @@ myApp()
       <div className="top-bar__content">
         <div className="top-bar__right">
           <ul className="top-bar__menu">
-{getRandomItemFromArray(topBarArray,5).map((item)=>(
+{getRandomItemFromArray(topBarArray,5).map((item,index)=>(
     
-            <li className="top-bar__item">
+            <li key={index} className="top-bar__item">
               <Link to={item.href} className="top-bar__link">{item.title} </Link>
             </li>
 ))}
