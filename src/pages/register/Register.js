@@ -32,7 +32,6 @@ export default function Register() {
 
 
   const registerHandler = (e) => {
-    console.log(value4);
     e.preventDefault()
     let obj = {
       name: `${value4}`,
@@ -60,7 +59,6 @@ export default function Register() {
             timer: 1500,
             color:' #a5dc86',
                 }).then(value=>{navigate('/')});
-          console.log(authContextReg);  
         }) 
     }
     myAppReg()

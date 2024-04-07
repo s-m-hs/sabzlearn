@@ -33,8 +33,6 @@ let obj={
   identifier:value1,
   password:value2
 }
-console.log(value1);
-console.log(value2);
 async function myAppLogin(){
   const res=await fetch(`http://localhost:5000/v1/auth/login`,{
     method:'POST',
@@ -44,8 +42,6 @@ async function myAppLogin(){
     body:JSON.stringify(obj)
   }).then(
     (res)=>{
-      console.log(res)
-      console.log(res.ok)
       if(!res.ok){
         return res.text().then((text)=>{
           throw new Error(text)
@@ -57,7 +53,6 @@ async function myAppLogin(){
     
   ).then(
     result=>{
-      console.log(result)
       authContextLogin.login({},result.accessToken)
       Swal.fire({
         position: "top-end",
@@ -70,7 +65,6 @@ async function myAppLogin(){
     }
   ).catch(
     err=>{
-      console.log(err);
       Swal.fire({
         position: "top-end",
         icon: "warning",

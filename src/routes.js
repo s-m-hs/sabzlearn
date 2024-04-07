@@ -10,7 +10,7 @@ import Register from './pages/register/Register'
 let routes=[
 
 {path:'/',element:<Index/>},
-{path:'cource-info/:courceName',element:<CourseInfo/>},
+{path:'course-info/:courceName',element:<CourseInfo/>},
 {path:'article-info/:articleName',element:<ArticleInfo/>},
 {path:'category/:categoryName',element:<Category/>},
 {path:'cources',element:<Cources/>},

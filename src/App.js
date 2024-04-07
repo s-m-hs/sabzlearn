@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import './App.css'
 import routes from './routes';
-import { json, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import AuthContext from './context/loginContext';
 
 
@@ -25,7 +25,7 @@ export default function App() {
   },[]) 
   useEffect(()=>{ 
     const getLocalStorage=JSON.parse(localStorage.getItem('user')) 
-    console.log(getLocalStorage);
+    // console.log(getLocalStorage);
     if(getLocalStorage){
       async function myAppGetLocal(){
         const res=await fetch(`http://localhost:5000/v1/auth/me`,{
@@ -35,7 +35,7 @@ export default function App() {
         }
         }).then(res=>res.json()).then(
           data=>{
-            console.log(data); 
+            // console.log(data); 
             setIsLogedIn(true)
             setUserInfo(data)
           }
