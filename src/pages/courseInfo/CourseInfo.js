@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './CourseInfo.css'
 import TopBar from '../../components/topBar/TopBar' 
 import NavBar from '../../components/navBar/NavBar'
@@ -7,8 +7,29 @@ import Breadcrumb from '../../components/breadcrumb/Breadcrumb'
 import CourceDetailBox from '../../components/courceDetailBox/CourceDetailBox'
 import CommentsTextArea from '../../components/commentsTextArea/CommentsTextArea'
 import Accordion from 'react-bootstrap/Accordion';
+import {useParams} from 'react-router-dom'
 
 export default function CourseInfo() {
+
+  const param=useParams()
+  const getLocalStorage=JSON.parse(localStorage.getItem('user'))
+useEffect(()=>{
+  
+  async function myApp(){
+    const res=await fetch(`http://localhost:5000/v1/courses/${param.courceName}`,{
+      method:'POST', 
+      headers:{
+        'Authorization':`Bearer ${getLocalStorage.tokenValue}`
+    }}).then(res=>res.json()).then(
+      result=>console.log(result)
+    )
+  }
+  myApp()
+  console.log(getLocalStorage.tokenValue)
+},[])
+
+
+  console.log(param.courceName)
   return (
 <>
 <TopBar/>
