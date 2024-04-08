@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './CourseInfo.css'
 import TopBar from '../../components/topBar/TopBar' 
 import NavBar from '../../components/navBar/NavBar'
@@ -11,29 +11,44 @@ import {useParams} from 'react-router-dom'
 
 export default function CourseInfo() {
 
+const [sessions,setSessions]=useState([])
+const[courseDetail,setCourseDetail]=useState({})
+const[comments,setComments]=useState([]) 
+
   const param=useParams()
   const getLocalStorage=JSON.parse(localStorage.getItem('user'))
 useEffect(()=>{
   
   async function myApp(){
+
     const res=await fetch(`http://localhost:5000/v1/courses/${param.courceName}`,{
       method:'POST', 
       headers:{
         'Authorization':`Bearer ${getLocalStorage.tokenValue}`
-    }}).then(res=>res.json()).then(
-      result=>console.log(result)
+    },
+  
+  }).then(res=>res.json()).then(
+      result=>{
+console.log(result)
+setCourseDetail(result)
+setComments(result.comments)
+setSessions(result.sessions)
+      }
     )
   }
   myApp()
   console.log(getLocalStorage.tokenValue)
-},[])
+},[param])
 
-
-  console.log(param.courceName)
+ 
+  console.log(param)
   return (
 <>
 <TopBar/>
 <NavBar/>
+
+                  
+{courseDetail !=0  && <>
 <Breadcrumb 
 links={[
   {id:1,title:'خانه',to:''},
@@ -42,6 +57,8 @@ links={[
 ]
   
 }/>
+
+
     <section className="course-info">
       <div className="container">
         <div className="row">
@@ -50,10 +67,10 @@ links={[
               آموزش برنامه نویسی فرانت اند
             </a>
             <h1 className="course-info__title">
-              آموزش 20 کتابخانه جاوااسکریپت برای بازار کار
+              {courseDetail.name}
             </h1>
             <p className="course-info__text">
-              امروزه کتابخانه‌ها کد نویسی را خیلی آسان و لذت بخش تر کرده اند. به قدری که حتی امروزه هیچ شرکت برنامه نویسی پروژه های خود را با Vanilla Js پیاده سازی نمی کند و همیشه از کتابخانه ها و فریمورک های موجود استفاده می کند. پس شما هم اگه میخواید یک برنامه نویس عالی فرانت اند باشید، باید کتابخانه های کاربردی که در بازار کار استفاده می شوند را به خوبی بلد باشید
+              {courseDetail.description}
             </p>
             <div className="course-info__social-media">
               <a href="#" className="course-info__social-media-item">
@@ -86,16 +103,9 @@ links={[
                 <div className="row">
 
 
-<CourceDetailBox title='وضعیت دوره ' text='به اتمام رسیده ' icon='graduation-cap'/>
-<CourceDetailBox title='وضعیت دوره ' text='به اتمام رسیده ' icon='clock'/>
-<CourceDetailBox title='وضعیت دوره ' text='به اتمام رسیده ' icon='calendar-alt'/>
-<CourceDetailBox title='وضعیت دوره ' text='به اتمام رسیده ' icon='user-alt'/>
-<CourceDetailBox title='وضعیت دوره ' text='به اتمام رسیده ' icon='info-circle'/>
-<CourceDetailBox title='وضعیت دوره ' text='به اتمام رسیده ' icon='fa-play'/>
-
-
-
-
+<CourceDetailBox title='زمان برگزاری  ' text={courseDetail.createdAt} icon='clock'/> 
+<CourceDetailBox title='وضعیت دوره ' text={courseDetail.isComplete===1 ? 'به اتمام رسیده ':'درحال برگزاری'} icon='graduation-cap'/>
+<CourceDetailBox title=' آخرین بروزرسانی ' text={courseDetail.updatedAt} icon='calendar-alt'/>
                   </div>
                   </div>
 {/* <!-- Start Course Progress --> */}
@@ -247,6 +257,8 @@ links={[
             <div className="courses-info">
               <div className="course-info">
                 <div className="course-info__register">
+
+                  
                   <span className="course-info__register-title">
                     <i className="fas fa-graduation-cap course-info__register-icon"></i>
                     دانشجوی دوره هستید
@@ -348,7 +360,9 @@ links={[
                   </div>
                   </div>
                   </main>
-                  
+
+</> }
+
 
 
 
