@@ -1,0 +1,13 @@
+.cmsdatatable-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    padding: 20px;
+}
+.cmstable-user th{
+    font-weight: 700;
+}
+.cmsdatatable-title{
+    font-size: 1.5cqi;
+    font-weight: 700;
+}

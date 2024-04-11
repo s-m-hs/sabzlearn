@@ -24,7 +24,7 @@ export default function CmsSidebar() {
         <NavLink to='comments' className='sidebar-li'>
         <AttachEmailIcon/>کامنت ها
         </NavLink>
-        <NavLink to='/users' className='sidebar-li'>
+        <NavLink to='users' className='sidebar-li'>
         <PeopleIcon/>کاربران
         </NavLink>
         <NavLink to='/offers' className='sidebar-li'>

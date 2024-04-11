@@ -1,16 +1,27 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import LogoutIcon from '@mui/icons-material/Logout';
 import './CmsHeader.css'
+import AuthContext from '../../context/loginContext';
+import { useNavigate } from 'react-router-dom'
+
+
 export default function CmsHeader() {
  const[flagThem,setFlagThem]=useState(false)
  const[userData,setUserData]=useState({})
+ const navigate=useNavigate()
 
+ const authContextHeader=useContext(AuthContext)
 
-const changeThem=()=>{
-  setFlagThem(prev=>!prev)
-  }
+const logOut=()=>{
+console.log('logout')
+authContextHeader.logout()
+return  navigate('/')
+}
+ 
+
 
 const getLocalStorage=JSON.parse(localStorage.getItem('user'))  
 console.log(getLocalStorage);
@@ -34,16 +45,16 @@ console.log(userData);
 
 
 ////////////////////////////////////
-  useEffect(()=>{
-if(flagThem){
-    // document.documentElement.style.setProperty('--white','#7209b7')
-    document.documentElement.style.setProperty('--themCms','#777')
-}else{
-  // document.documentElement.style.setProperty('--white','#ffffff')
-  document.documentElement.style.setProperty('--themCms','#0a031c')
+//   useEffect(()=>{
+// if(flagThem){
+//     // document.documentElement.style.setProperty('--white','#7209b7')
+//     document.documentElement.style.setProperty('--themCms','#777')
+// }else{
+//   // document.documentElement.style.setProperty('--white','#ffffff')
+//   document.documentElement.style.setProperty('--themCms','#0a031c')
 
-}
-  },[flagThem])
+// }
+//   },[flagThem])
 
   
 
@@ -64,8 +75,7 @@ if(flagThem){
             <button className=' header-search'>جستجو</button>
             </div>
             <button className='header-button-left'><NotificationsIcon/></button>
-            <button className='header-button-left' onClick={changeThem
-            }><LightModeIcon/></button>
+            <button className='header-button-left logout' onClick={logOut}><LogoutIcon/></button>
         </div>
     </div>
   )

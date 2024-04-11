@@ -21,6 +21,7 @@ export default function App() {
   } ,[token]) 
   const logout =useCallback( () => {
     setIsLogedIn(false)
+    setUserInfo(false)
     localStorage.removeItem('user')
   },[]) 
   useEffect(()=>{ 
@@ -42,10 +43,13 @@ export default function App() {
         ) 
       }
       myAppGetLocal()
+    }else{
+      setIsLogedIn(false)
+
     }
     
     
-    },[login])
+    },[login,logout])
 
   return (
     <>

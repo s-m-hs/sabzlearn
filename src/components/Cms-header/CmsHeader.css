@@ -69,3 +69,5 @@ align-items: center;
 .header-button-left svg{
     color: antiquewhite;
 }
+.header-button-left.logout svg{
+    transform: rotate(180deg)}
