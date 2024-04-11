@@ -1,0 +1,29 @@
+ 
+
+.pindex-container {
+    /* background-color:var(--white-50); */
+    background:linear-gradient(to right,rgba(51, 49, 49, 0.8),rgba(230, 230, 230,1));
+
+    
+    min-height: 100vh;
+ }
+ /* @font-face {
+     font-family: 'Yekan';
+     font-style: normal;
+     font-weight: normal;
+     src: url('../fonts/Yekan.woff') format('woff2');
+ } */
+
+ :root{
+    --white:#ffffff;
+    --white-50:rgb(230, 230, 230);
+    /* --them:#001d3d; */
+    --themCms:#0a031c;
+    /* --them:#d68c45; */
+    /* --them:#370617; */
+    /* --them:#78290f; */
+    /* --them:#036666; */
+    /* --them:#7c6a0a; */
+ }
+
+

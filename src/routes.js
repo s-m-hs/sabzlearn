@@ -6,6 +6,8 @@ import Category from './pages/category/Category'
 import Cources from './components/cources/Cources'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
+import PIndex from './pages/Cms/PIndex'
+import CmsUsers from './pages/Cms/CmsUsers/CmsUsers'
 
 let routes=[
 
@@ -16,6 +18,17 @@ let routes=[
 {path:'cources',element:<Cources/>},
 {path:'login',element:<Login/>},
 {path:'register',element:<Register/>},
+
+
+{path:'/p-admin' ,element:<PIndex/>,
+
+children:[
+{path:'users',element:<CmsUsers/>}
+]
+
+},
+
+
 
 
 ]
