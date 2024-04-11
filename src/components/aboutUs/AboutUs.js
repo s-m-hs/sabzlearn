@@ -1,6 +1,6 @@
 import React from 'react'
 import './AboutUs.css'
-import SectionHeader from './../sectionHeader/SectionHeader'
+import SectionHeader from '../sectionHeader/SectionHeader'
 import AboutUsBox from '../aboutUsBox/AboutUsBox'
 
 export default function AboutUs() {
