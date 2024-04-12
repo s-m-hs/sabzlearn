@@ -8,6 +8,7 @@ import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import PIndex from './pages/Cms/PIndex'
 import CmsUsers from './pages/Cms/CmsUsers/CmsUsers'
+import CmsProducts from './components/CmsProducts/CmsProducts'
 
 let routes=[
 
@@ -23,7 +24,8 @@ let routes=[
 {path:'/p-admin' ,element:<PIndex/>,
 
 children:[
-{path:'users',element:<CmsUsers/>}
+{path:'users',element:<CmsUsers/>},
+{path:'products',element:<CmsProducts/>}
 ]
 
 },

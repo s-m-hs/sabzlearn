@@ -18,7 +18,7 @@ export default function CmsSidebar() {
         <NavLink to='/mainPage' className='sidebar-li '>
         <OtherHousesIcon/>صفحه اصلی 
         </NavLink>
-        <NavLink  to='/products' className='sidebar-li'>
+        <NavLink  to='products' className='sidebar-li'>
         <ProductionQuantityLimitsIcon/>محصولات
         </NavLink>
         <NavLink to='comments' className='sidebar-li'>
